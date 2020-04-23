@@ -13,7 +13,7 @@ module.exports = function(loader, toggl, timeSlotter, asker, config) {
     toggl.getTimeEntries(start, end).then(entries => {
       entries.forEach(entry => {
         const project = projects.filter(project => project.id === entry.pid)[0]
-        print(project, entry.slot)
+        print(project, entry)
       })
     })
   }
@@ -23,8 +23,8 @@ module.exports = function(loader, toggl, timeSlotter, asker, config) {
   }
 }
 
-function print(project, slot) {
-  console.log(slot.description + ' on "' + project.description + '"')
+function print(project, entry) {
+  console.log(`${entry.slot.description} on ${project.description}: "${entry.description}"`)
 }
 
 async function chooseGranularity(asker) {
